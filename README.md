@@ -2,7 +2,7 @@
 
 > Personal portfolio website built with React. Showcases projects, skills, and background as a Software Engineering student at Harare Institute of Technology.
 
-**Live site:** `[your-deployed-url]` &nbsp;·&nbsp; **Author:** [Wilmar Macheke](https://github.com/axecrow-12)
+**Live site:** `https://portfolio-six-tan-74.vercel.app/` &nbsp;·&nbsp; **Author:** [Wilmar Macheke](https://github.com/axecrow-12)
 
 ---
 
