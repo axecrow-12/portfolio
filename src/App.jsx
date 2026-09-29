@@ -3,6 +3,64 @@ import "./App.css";
 
 const projects = [
   {
+    title: "Level Up Lounge",
+    description:
+      "Point of sale and reporting system for a gaming arcade. Staff record sessions and sales, while admins manage packages, watch transactions arrive in real time and export daily closing reports.",
+    tech: ["React", "Spring Boot", "PostgreSQL", "WebSockets", "JWT"],
+    status: "Live",
+    statusClass: "badge-built",
+    live: "https://level-up-lounge-weld.vercel.app",
+    category: ["Web", "React", "Java"],
+  },
+  {
+    title: "Sparkle & Slay",
+    description:
+      "Online store for a Harare fashion boutique, with a product catalogue, an admin panel for managing collections, and EcoCash checkout that confirms every payment directly with EcoCash before accepting it.",
+    tech: ["JavaScript", "PHP", "MySQL", "EcoCash API"],
+    status: "Live",
+    statusClass: "badge-built",
+    live: "https://sparkleandslay.net",
+    category: ["Web", "PHP"],
+  },
+  {
+    title: "Pique Squid Cyber",
+    description:
+      "Marketing and lead generation site for the cybersecurity division of Pique Squid, covering managed SOC, cloud security, AI governance and awareness training, with a multi step quote wizard.",
+    tech: ["HTML", "CSS", "Bootstrap 5", "JavaScript"],
+    status: "Live",
+    statusClass: "badge-built",
+    live: "https://cyber.piquesquid.com",
+    category: ["Web"],
+  },
+  {
+    title: "FarmRoute",
+    description:
+      "Offline first Android app that diagnoses crop diseases from a photo of a leaf, entirely on the phone. Each diagnosis is tagged to the farmer's field by GPS and synced later when a connection is available.",
+    tech: ["Java", "Android", "TensorFlow Lite", "CameraX", "Room"],
+    status: "Built",
+    statusClass: "badge-built",
+    github: "https://github.com/axecrow-12/farm-route",
+    category: ["Android", "Java", "Machine Learning"],
+  },
+  {
+    title: "SmartPay Shield",
+    description:
+      "Fraud detection for Zimbabwe mobile money. Every EcoCash payment is scored live by a LightGBM model plus local fraud rules, with an explainable risk score and passkey verification for risky transactions.",
+    tech: ["Node.js", "Python", "FastAPI", "LightGBM", "Firebase"],
+    status: "Built",
+    statusClass: "badge-built",
+    category: ["Web", "Machine Learning"],
+  },
+  {
+    title: "ICLPSM CMS",
+    description:
+      "Content management system for a professional body in Harare, turning a 61 page static website into a database backed site with a schema driven admin console.",
+    tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
+    status: "In Progress",
+    statusClass: "badge-progress",
+    category: ["Web", "PHP"],
+  },
+  {
     title: "LocationTracker",
     description:
       "Android application for GPS tracking, geofencing, push notifications, and Google Maps navigation. Implements real-time location updates with background service support.",
@@ -379,16 +437,30 @@ export default function App() {
                     </span>
                   ))}
                 </div>
-                <div className="project-actions">
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-outline btn-sm"
-                  >
-                    View on GitHub ↗
-                  </a>
-                </div>
+                {(p.live || p.github) && (
+                  <div className="project-actions">
+                    {p.live && (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-primary btn-sm"
+                      >
+                        Visit Site ↗
+                      </a>
+                    )}
+                    {p.github && (
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-outline btn-sm"
+                      >
+                        View on GitHub ↗
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
