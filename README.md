@@ -2,7 +2,7 @@
 
 > Personal portfolio website built with React. Showcases projects, skills, and background as a Software Engineering student at Harare Institute of Technology.
 
-**Live site:** `https://portfolio-six-tan-74.vercel.app/` &nbsp;·&nbsp; **Author:** [Wilmar Macheke](https://github.com/axecrow-12)
+**Live site:** [axecrow-12.github.io/portfolio](https://axecrow-12.github.io/portfolio/) &nbsp;·&nbsp; **Author:** [Wilmar Macheke](https://github.com/axecrow-12)
 
 ---
 
@@ -22,7 +22,7 @@
 | Fonts | Space Grotesk · Inter · JetBrains Mono |
 | Motion | Framer Motion (hero section) |
 | Build tool | Vite |
-| Deployment | Vercel / Netlify |
+| Deployment | GitHub Pages via GitHub Actions |
 
 ---
 
@@ -122,18 +122,23 @@ Colors are defined as CSS custom properties in `:root` inside `App.css` and can 
 
 ## Deployment
 
-### Vercel (recommended)
+The site deploys to **GitHub Pages** automatically through GitHub Actions (`.github/workflows/deploy.yml`).
+
+| Branch | Role | What happens on push |
+|--------|------|----------------------|
+| `main` | Production | Lint, build, deploy to GitHub Pages |
+| `staging` | Testing | Lint and build only (no deploy) |
+| `feature/*` | Daily work | Pull request into `staging` runs lint and build |
+
+**Flow:** branch from `staging` → open a PR into `staging` → merge → test locally with `npm run build && npm run preview` → PR from `staging` into `main` → live.
+
+The workflow sets `BASE_PATH=/portfolio/` so asset links work under the repo subpath. If the repo is ever renamed to `axecrow-12.github.io` or given a custom domain, change `BASE_PATH` to `/` in the workflow.
+
+### Run locally
 
 ```bash
-npm install -g vercel
-vercel
-```
-
-### Netlify
-
-```bash
-npm run build
-# Drag the dist/ folder into netlify.com/drop
+npm ci
+npm run dev
 ```
 
 ---

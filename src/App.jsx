@@ -254,7 +254,7 @@ export default function App() {
             <a href="#certifications">Education</a>
             <a href="#contact">Contact</a>
           </div>
-          <a href="/Wilmar-CV.pdf" className="btn nav-cta">
+          <a href={`${import.meta.env.BASE_URL}Wilmar-CV.pdf`} className="btn nav-cta">
             Download CV
           </a>
         </div>
@@ -293,7 +293,7 @@ export default function App() {
                 <a href="#contact" className="btn btn-outline">
                   Contact Me
                 </a>
-                <a href="/Wilmar-CV.pdf" className="btn btn-outline">
+                <a href={`${import.meta.env.BASE_URL}Wilmar-CV.pdf`} className="btn btn-outline">
                   Download CV ↓
                 </a>
               </div>
