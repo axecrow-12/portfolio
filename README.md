@@ -18,7 +18,7 @@
 |-------|-----------|
 | Framework | React 19 |
 | Styling | Plain CSS (custom properties, no UI library) |
-| Animations | CSS transitions + IntersectionObserver |
+| Animations | CSS transitions, IntersectionObserver, Canvas 2D (cursor trail) |
 | Fonts | Space Grotesk · Inter · JetBrains Mono |
 | Build tool | Vite 6 |
 | Deployment | GitHub Pages via GitHub Actions |
@@ -28,7 +28,11 @@
 ## Features
 
 - **Typewriter effect** — cycles through what I do (static text when reduced motion is on)
-- **Grouped skills** — Mobile, Web & Backend, Data, Machine Learning, Tooling
+- **Animated background** — drifting aurora glow, masked grid and frosted-glass cards
+- **Code cursor trail** — the cursor leaves fading code glyphs and lights up the grid around it (mouse only; off with reduced motion)
+- **Tech logos** — brand icons for every skill and project technology (simple-icons)
+- **GitHub section** — live repos, languages and activity from the GitHub API
+- **Project screenshots** — browser/phone frames with a lightbox gallery
 - **Project filter** — filter projects by technology, with live, built and in-progress badges
 - **Scroll progress bar** — indigo/cyan gradient fixed to the top of the viewport
 - **Scroll reveal animations** — sections fade up as they enter view
@@ -116,7 +120,17 @@ All content lives in `src/data/content.js` in plain arrays — no CMS. To update
 - **Education** — edit `education`
 - **Typewriter phrases** — edit `phrases`
 - **Contact links** — edit `links`
+- **GitHub section** — edit `github` (username, how many repos, which to hide)
 - **CV file** — replace `public/Wilmar-CV.pdf`
+
+### Project screenshots
+
+Drop images into `src/assets/projects/` named after the project's `slug` in `content.js`:
+
+- `level-up-lounge.png` → shown on the card in a browser frame (Android projects get a phone frame)
+- `level-up-lounge-2.png`, `level-up-lounge-3.png` → extra shots in the click-to-enlarge gallery
+
+PNG, JPG, WebP and AVIF all work. Projects without a screenshot show a generated tech-logo placeholder. Use 16:10 desktop shots (e.g. 1440×900) for web projects and portrait phone shots for Android.
 
 The hero's "Currently building" line is generated from projects marked `In Progress`.
 
