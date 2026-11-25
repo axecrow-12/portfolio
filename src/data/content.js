@@ -1,4 +1,5 @@
 // All editable site content lives here.
+import hitLogo from "../assets/hit-logo.png";
 
 export const links = {
   github: "https://github.com/axecrow-12",
@@ -8,9 +9,12 @@ export const links = {
 };
 
 // status: "Live" | "Built" | "In Progress" | "Concept + Build"
+// slug: screenshots in src/assets/projects/ named <slug>.png (or .jpg/.webp)
+//   appear on the card automatically; add <slug>-2.png, <slug>-3.png for a gallery.
 export const projects = [
   {
     title: "Level Up Lounge",
+    slug: "level-up-lounge",
     description:
       "Point of sale and reporting system for a gaming arcade. Staff record sessions and sales, while admins manage packages, watch transactions arrive in real time and export daily closing reports.",
     tech: ["React", "Spring Boot", "PostgreSQL", "WebSockets", "JWT"],
@@ -20,6 +24,7 @@ export const projects = [
   },
   {
     title: "Sparkle & Slay",
+    slug: "sparkle-and-slay",
     description:
       "Online store for a Harare fashion boutique, with a product catalogue, an admin panel for managing collections, and EcoCash checkout that confirms every payment directly with EcoCash before accepting it.",
     tech: ["JavaScript", "PHP", "MySQL", "EcoCash API"],
@@ -29,6 +34,7 @@ export const projects = [
   },
   {
     title: "Pique Squid Cyber",
+    slug: "pique-squid-cyber",
     description:
       "Marketing and lead generation site for the cybersecurity division of Pique Squid, covering managed SOC, cloud security, AI governance and awareness training, with a multi step quote wizard.",
     tech: ["HTML", "CSS", "Bootstrap 5", "JavaScript"],
@@ -38,6 +44,7 @@ export const projects = [
   },
   {
     title: "FarmRoute",
+    slug: "farm-route",
     description:
       "Offline first Android app that diagnoses crop diseases from a photo of a leaf, entirely on the phone. Each diagnosis is tagged to the farmer's field by GPS and synced later when a connection is available.",
     tech: ["Java", "Android", "TensorFlow Lite", "CameraX", "Room"],
@@ -47,6 +54,7 @@ export const projects = [
   },
   {
     title: "SmartPay Shield",
+    slug: "smartpay-shield",
     description:
       "Fraud detection for Zimbabwe mobile money. Every EcoCash payment is scored live by a LightGBM model plus local fraud rules, with an explainable risk score and passkey verification for risky transactions.",
     tech: ["Node.js", "Python", "FastAPI", "LightGBM", "Firebase"],
@@ -55,6 +63,7 @@ export const projects = [
   },
   {
     title: "ICLPSM CMS",
+    slug: "iclpsm-cms",
     description:
       "Content management system for a professional body in Harare, turning a 61 page static website into a database backed site with a schema driven admin console.",
     tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
@@ -63,6 +72,7 @@ export const projects = [
   },
   {
     title: "LocationTracker",
+    slug: "location-tracker",
     description:
       "Android application for GPS tracking, geofencing, push notifications, and Google Maps navigation. Implements real-time location updates with background service support.",
     tech: ["Java", "Android", "Room", "Google Maps API"],
@@ -72,6 +82,7 @@ export const projects = [
   },
   {
     title: "KuraVizor",
+    slug: "kuravizor",
     description:
       "Offline-first farm intelligence platform designed for low-connectivity environments. Provides practical agricultural analytics, crop tracking, and decision support with full offline capability.",
     tech: ["TypeScript", "React", "PostgreSQL", "Prisma"],
@@ -81,6 +92,7 @@ export const projects = [
   },
   {
     title: "Agrovia 2.0",
+    slug: "agrovia",
     description:
       "Collaborative agriculture platform enabling farmer coordination, resource sharing, market access, and analytics. Designed to connect smallholder farmers with tools for collective growth.",
     tech: ["React", "Spring Boot", "MySQL"],
@@ -89,6 +101,14 @@ export const projects = [
     category: ["Web", "React", "Java"],
   },
 ];
+
+// GitHub repositories section. Repos are fetched live from the public API,
+// ordered by stars, then most recent activity.
+export const github = {
+  user: "axecrow-12",
+  limit: 6,
+  exclude: ["axecrow-12", "portfolio", "Java-Assignment"],
+};
 
 export const statusBadge = {
   Live: "badge-live",
@@ -103,15 +123,15 @@ export const skillGroups = [
     items: ["Java", "Android SDK", "Room", "CameraX", "Google Maps API", "Gradle"],
   },
   {
+    title: "Data",
+    items: ["PostgreSQL", "MySQL", "Prisma ORM", "Firebase"],
+  },
+  {
     title: "Web & Backend",
     items: [
       "React", "TypeScript", "JavaScript", "Spring Boot", "Node.js",
       "PHP", "Laravel", "REST APIs", "WebSockets",
     ],
-  },
-  {
-    title: "Data",
-    items: ["PostgreSQL", "MySQL", "Prisma ORM", "Firebase"],
   },
   {
     title: "Machine Learning",
@@ -128,6 +148,7 @@ export const education = [
     title: "BTech Software Engineering",
     place: "Harare Institute of Technology",
     period: "Current",
+    logo: hitLogo,
   },
 ];
 

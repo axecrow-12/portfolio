@@ -11,6 +11,7 @@ export default function Nav() {
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#github">GitHub</a>
           <a href="#contact">Contact</a>
         </div>
         <a href={links.cv} className="btn nav-cta">

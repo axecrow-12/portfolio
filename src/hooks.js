@@ -51,6 +51,95 @@ export function useScrollProgress() {
   return progress;
 }
 
+// Moves a card's hover glow (.glow-card) to follow the pointer.
+export function trackPointer(e) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+}
+
+const GH_CACHE_KEY = "gh-repos-v1";
+const GH_CACHE_MS = 60 * 60 * 1000;
+
+function readCache() {
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(GH_CACHE_KEY));
+    if (cached && Date.now() - cached.at < GH_CACHE_MS) return cached.data;
+  } catch {
+    // storage unavailable or corrupt: fetch fresh
+  }
+  return null;
+}
+
+function writeCache(data) {
+  try {
+    sessionStorage.setItem(GH_CACHE_KEY, JSON.stringify({ at: Date.now(), data }));
+  } catch {
+    // storage unavailable: skip caching
+  }
+}
+
+// Public profile + repos from the GitHub REST API (unauthenticated,
+// cached for an hour per browser session to stay under the rate limit).
+export function useGitHubRepos({ user, limit, exclude }) {
+  const [state, setState] = useState(() => {
+    const cached = readCache();
+    return cached ? { status: "ready", ...cached } : { status: "loading" };
+  });
+
+  useEffect(() => {
+    if (state.status === "ready") return;
+    const ctrl = new AbortController();
+    const get = (path) =>
+      fetch(`https://api.github.com/${path}`, {
+        signal: ctrl.signal,
+        headers: { Accept: "application/vnd.github+json" },
+      }).then((r) => {
+        if (!r.ok) throw new Error(`GitHub API ${r.status}`);
+        return r.json();
+      });
+
+    Promise.all([get(`users/${user}`), get(`users/${user}/repos?per_page=100&type=owner`)])
+      .then(([profile, repos]) => {
+        const list = repos
+          .filter((r) => !r.fork && !r.archived && !exclude.includes(r.name))
+          .sort(
+            (a, b) =>
+              b.stargazers_count - a.stargazers_count ||
+              new Date(b.pushed_at) - new Date(a.pushed_at)
+          );
+
+        const languages = {};
+        for (const r of list) if (r.language) languages[r.language] = (languages[r.language] ?? 0) + 1;
+
+        const data = {
+          profile: { repos: profile.public_repos, followers: profile.followers, url: profile.html_url },
+          languages: Object.entries(languages).sort((a, b) => b[1] - a[1]),
+          repos: list.slice(0, limit).map((r) => ({
+            name: r.name,
+            description: r.description,
+            url: r.html_url,
+            language: r.language,
+            stars: r.stargazers_count,
+            forks: r.forks_count,
+            pushedAt: r.pushed_at,
+            topics: r.topics ?? [],
+          })),
+        };
+        writeCache(data);
+        setState({ status: "ready", ...data });
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") setState({ status: "error" });
+      });
+
+    return () => ctrl.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, limit]);
+
+  return state;
+}
+
 // Observes a single element, so anything mounted later (e.g. after a
 // project filter change) still gets revealed.
 export function useReveal() {
