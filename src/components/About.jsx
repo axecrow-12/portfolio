@@ -1,5 +1,7 @@
 import { education, skillGroups } from "../data/content.js";
+import { getTechColor } from "../data/techIcons.js";
 import Reveal from "./Reveal.jsx";
+import TechIcon from "./TechIcon.jsx";
 
 export default function About() {
   return (
@@ -26,7 +28,10 @@ export default function About() {
                 sound, but genuinely useful to the people who depend on them.
               </p>
             </Reveal>
-            <Reveal className="glass-card" delay={0.1}>
+            <Reveal className="glass-card edu-card" delay={0.1}>
+              {education[0]?.logo && (
+                <img className="edu-watermark" src={education[0].logo} alt="" aria-hidden="true" />
+              )}
               <h3>Education</h3>
               <ul className="edu-list">
                 {education.map((e) => (
@@ -52,10 +57,11 @@ export default function About() {
             {skillGroups.map((g, i) => (
               <Reveal key={g.title} className="glass-card skill-group" delay={i * 0.06}>
                 <h3>{g.title}</h3>
-                <ul className="chip-wrap">
+                <ul className="tech-tiles">
                   {g.items.map((item) => (
-                    <li key={item} className="chip">
-                      {item}
+                    <li key={item} className="tech-tile" style={{ "--brand": getTechColor(item) }}>
+                      <TechIcon name={item} size={26} />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>

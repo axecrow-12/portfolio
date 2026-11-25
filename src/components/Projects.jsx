@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { projects, statusBadge } from "../data/content.js";
 import { ExternalIcon } from "./Icons.jsx";
+import ProjectMedia from "./ProjectMedia.jsx";
 import Reveal from "./Reveal.jsx";
+import TechIcon from "./TechIcon.jsx";
+import { trackPointer } from "../hooks.js";
 
 const allTags = ["All", ...new Set(projects.flatMap((p) => p.category))];
 
@@ -39,35 +42,45 @@ export default function Projects() {
 
         <div className="projects-grid">
           {filtered.map((p, i) => (
-            <Reveal as="article" key={p.title} className="project-card" delay={i * 0.06}>
-              <div className="project-top">
-                <h3>{p.title}</h3>
-                <span className={`status-badge ${statusBadge[p.status]}`}>
-                  {p.status}
-                </span>
-              </div>
-              <p className="project-desc">{p.description}</p>
-              <ul className="tech-wrap" aria-label="Technologies">
-                {p.tech.map((t) => (
-                  <li key={t} className="tech-pill">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              {(p.live || p.github) && (
-                <div className="project-actions">
-                  {p.live && (
-                    <a href={p.live} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
-                      Visit Site <ExternalIcon />
-                    </a>
-                  )}
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noreferrer" className="btn btn-outline btn-sm">
-                      View on GitHub <ExternalIcon />
-                    </a>
-                  )}
+            <Reveal
+              as="article"
+              key={p.title}
+              className="project-card glow-card"
+              delay={i * 0.06}
+              onPointerMove={trackPointer}
+            >
+              <ProjectMedia project={p} />
+              <div className="project-body">
+                <div className="project-top">
+                  <h3>{p.title}</h3>
+                  <span className={`status-badge ${statusBadge[p.status]}`}>
+                    {p.status}
+                  </span>
                 </div>
-              )}
+                <p className="project-desc">{p.description}</p>
+                <ul className="tech-wrap" aria-label="Technologies">
+                  {p.tech.map((t) => (
+                    <li key={t} className="tech-pill">
+                      <TechIcon name={t} size={13} />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                {(p.live || p.github) && (
+                  <div className="project-actions">
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
+                        Visit Site <ExternalIcon />
+                      </a>
+                    )}
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noreferrer" className="btn btn-outline btn-sm">
+                        View on GitHub <ExternalIcon />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
             </Reveal>
           ))}
         </div>
